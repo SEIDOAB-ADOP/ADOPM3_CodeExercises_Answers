@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UPR4WoY0dUAynoJBk+IJd/Gi1LNZIpBxUhyUILNImedaXRKrDaFmzI8d0Xb2bgx1z9v2I2Lvoiunywa6oLlmLQ==",
+  "dgSpecHash": "HVeUkN+c+akT0CqWGXdUfM69RbNnsuX0WlQQ2e6xVlBieWMjjM8dlHwBDcGjfCErFjaAOd3VtvT05vKmI6UOXA==",
   "success": true,
   "projectFilePath": "/Users/Martin/Development/projects/Advanced_OOP_Nov_2024/CSharp Part/Module3/ADOPM3_CodeExercises_Answers/Async2/Async2.csproj",
-  "expectedPackageFiles": [
-    "/Users/Martin/.nuget/packages/microsoft.netcore.app.ref/7.0.17/microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
-    "/Users/Martin/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.17/microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
-    "/Users/Martin/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.17/microsoft.netcore.app.host.osx-arm64.7.0.17.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
