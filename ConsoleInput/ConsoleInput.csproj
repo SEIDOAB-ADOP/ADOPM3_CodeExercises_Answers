@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Seido.Utilities.ConsoleInput</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Martin Lenart</Authors>
+    <Description>Methods to help consoleinput for C# .NET 8.0 projects and above</Description>
+  </PropertyGroup>
+
+</Project>
