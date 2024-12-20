@@ -124,9 +124,20 @@ namespace ThreadSafeData
     }  
 }
 /*  Exercise
-    1. Make class Vehicle Thread safe using lock(...)
-    2.  - Have task t1 write 1000 times "ABC 123", "Kalle Anka" to myCar
-        - Have task t2 write 1000 times "HKL 556", "Musse Pigg" to myCar
+    1.  - Have task t1 write 1000 times "Mickey Mouse", "Jaguar", "EFD 235" to vechicleStorage.SetData
+        - Have task t2 write 1000 times "Donald Duck", "Volvo", "JKF 345" to vechicleStorage.SetData
         - Verify data consistency
-        - Discuss in the group what is data consistency in case of class Vehicle. Is your code living up to it?
+        - Discuss in the group what is data consistency means here and why is it wrong
+    
+    2.  - in both tasks, use vechicleStorage.GetData() to read the data right after writing it with vechicleStorage.SetData
+        - The data read could be either of below.  Both are correct. Do you understand why?
+             (owner, carBrand, regNr) == ("Donald Duck", "Volvo", "JKF 345") or
+             (owner, carBrand, regNr) == ("Mickey Mouse", "Jaguar", "EFD 235")
+        - in both tasks, write an if statement after vechicleStorage.GetData() to test data consistency. Write an error if not consistent
+
+    3. Make class Vehicle Thread safe using lock(...)
+        - Verify data consistency is now correct
+
+    4. Add another tasks that writes 100 times "Scrooge McDuck", "Lamborghini", "SCROOGE" to vechicleStorage.SetData
+        - Verify data consistency is still correct
 */
