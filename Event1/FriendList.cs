@@ -14,11 +14,10 @@ namespace Event1
         /// Parameter object? sender - list being created
         /// parameter TEventArgs e - int, being the number of friends created
         /// </summary>
-        public static event EventHandler<int> CreationProgress;
+        public event EventHandler<int> CreationProgress;
 
 
         public  List<Friend> myFriends = new List<Friend>();
-        public Friend this[int idx]=> myFriends[idx];
 
         public override string ToString()
         {
@@ -30,37 +29,21 @@ namespace Event1
             return sRet;
         }
 
-        public void SayHello(Action<Friend> sayHello)
+        public  void Seed (int NrOfItems)
         {
-            foreach (var item in myFriends)
+
+            for (int i = 0; i < NrOfItems; i++)
             {
-                sayHello(item);
-            }       
-        }
+                var afriend = Friend.Factory.CreateRandom();
 
+                myFriends.Add(afriend);
 
-        public static class Factory
-        {
-            public static FriendList CreateRandom(int NrOfItems, Func<Friend,Friend> doIt = null)
-            {
-
-                var myList = new FriendList();
-                for (int i = 0; i < NrOfItems; i++)
+                if (i%10_000 == 0)
                 {
-                    var afriend = Friend.Factory.CreateRandom();
-                    if (doIt != null)
-                        afriend = doIt(afriend);
-
-                    myList.myFriends.Add(afriend);
-
-                    if (i%10_000 ==0)
-                    {
-                        //Invoke the event
-                        //Your Code
-                        CreationProgress?.Invoke(myList, i);
-                    }
+                    //Invoke the event
+                    //Your Code
+                    CreationProgress?.Invoke(this, i);
                 }
-                return myList;
             }
         }
     }

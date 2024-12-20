@@ -34,8 +34,8 @@ namespace Linq_Orders
             {
                 if (o.DeliveryDate == null) return false;
 
-                var days = (o.DeliveryDate - o.OrderDate).Value.Days;
-                return days > 15;
+                TimeSpan? ts = (o.DeliveryDate - o.OrderDate);
+                return ts.Value.Days > 15;
             });
             Console.WriteLine($"\nOrder count with delivery time > 15 days: {lateDelCount}");
 
@@ -44,7 +44,7 @@ namespace Linq_Orders
             Console.WriteLine($"Ordersum Finland: {finnishOrders.Sum(o => o.Total):C2}");
 
             Console.WriteLine("\nOrders and Order value per country");
-            var groupedList = OrderList.GroupBy(o => o.Country, order => order);
+            var groupedList = OrderList.GroupBy(o => o.Country);
             foreach (var group in groupedList)
             {
                 Console.WriteLine($"Orders {group.Key}:");
