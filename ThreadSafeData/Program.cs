@@ -25,25 +25,32 @@ namespace ThreadSafeData
             Vehicle _vehicle;
             List<Vehicle> _vehicles = new List<Vehicle>();
 
+            public int Count()
+            {
+                lock (_locker)
+                {
+                    return _vehicles.Count;
+                }
+            }
             public void SetData(string owner, string carBrand, string regNr)
             {
-                //lock (_locker)
+                lock (_locker)
                 {
-                    //I somehow manipulate teh data
+                    //I somehow manipulate the data
                     Owner = owner;
                     CarBrand = carBrand;
-                    //Thread.Sleep(rnd.Next(1, 5));
+                    Thread.Sleep(rnd.Next(1, 5));
                     RegNr = regNr;
 
-                    //Create the instance
+                    //Finally, create the instance
                     _vehicle = new Vehicle(){ Owner = Owner,  CarBrand = CarBrand, RegNr = RegNr};
                     
                     //Place it into the list
                     _vehicles.Add(_vehicle);
 
                     //Check data consistency
-                    // if ((_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
-                    //     (_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    // if ((_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Donald Duck", "Volvo", "JKF 345") &&
+                    //     (_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Mickey Mouse", "Jaguar", "EFD 235"))
                     //     Console.WriteLine($"mySafe mismatch: Owner:{_vehicle.Owner}, CarBrand:{_vehicle.CarBrand}, RegNr:{_vehicle.RegNr}");
                 }
                 
@@ -62,8 +69,8 @@ namespace ThreadSafeData
                 { 
                     foreach (var v in _vehicles)
                     {
-                        if ((v.Owner, v.CarBrand, v.RegNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
-                            (v.Owner, v.CarBrand, v.RegNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                        if ((v.Owner, v.CarBrand, v.RegNr) != ("Donald Duck", "Volvo", "JKF 345") &&
+                            (v.Owner, v.CarBrand, v.RegNr) != ("Mickey Mouse", "Jaguar", "EFD 235"))
                         {
                             Console.WriteLine($"mySafe mismatch: Owner:{v.Owner}, CarBrand:{v.CarBrand}, RegNr:{v.RegNr}");
                             return false;
@@ -83,11 +90,11 @@ namespace ThreadSafeData
                 var rnd = new Random();
                 for (int i = 0; i < 1_000; i++)
                 {
-                    vechicleStorage.SetData("Mickey Mouse", "Mickey Mouse", "Mickey Mouse");
+                    vechicleStorage.SetData("Mickey Mouse", "Jaguar", "EFD 235");
 
-                    // (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
-                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
-                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
+                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Volvo", "JKF 345") &&
+                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Jaguar", "EFD 235"))
                     //     Console.WriteLine($"mySafe mismatch: Owner:{owner}, CarBrand:{carBrand}, RegNr:{regNr}");
                 }
                 Console.WriteLine("t1 Finished");
@@ -98,11 +105,11 @@ namespace ThreadSafeData
                 var rnd = new Random();
                 for (int i = 0; i < 1_000; i++)
                 {
-                    vechicleStorage.SetData("Donald Duck", "Donald Duck", "Donald Duck");
+                    vechicleStorage.SetData("Donald Duck", "Volvo", "JKF 345");
 
-                    // (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
-                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
-                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
+                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Volvo", "JKF 345") &&
+                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Jaguar", "EFD 235"))
                     //     Console.WriteLine($"mySafe mismatch: Owner:{owner}, CarBrand:{carBrand}, RegNr:{regNr}");
                 }
                 Console.WriteLine("t2 Finished");
@@ -111,6 +118,7 @@ namespace ThreadSafeData
             Task.WaitAll(t1, t2);
             Console.WriteLine("All Finished");
 
+            System.Console.WriteLine(vechicleStorage.Count());
             System.Console.WriteLine(vechicleStorage.CheckConsistency());
         }
     }  
