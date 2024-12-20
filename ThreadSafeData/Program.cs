@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,50 +7,88 @@ namespace ThreadSafeData
 {
     internal class Program
     {
-        public class SafeData
+        public class Vehicle
+        {
+            public string Owner  {get; set;}
+            public string CarBrand  {get; set;}
+            public string RegNr {get; set;}
+        }
+        
+        public class VechicleStorage
         {
             object _locker = new object();
-            string SafeFile;
-            int iSafeResult1 = 0;
-            int iSafeResult2 = 0;
+            string Owner;
+            string CarBrand;
+            string RegNr;
+
             Random rnd = new Random();
+            Vehicle _vehicle;
+            List<Vehicle> _vehicles = new List<Vehicle>();
 
-
-            public void SetData(string fname, int sf1, int sf2)
+            public void SetData(string owner, string carBrand, string regNr)
             {
-                lock (_locker)
+                //lock (_locker)
                 {
-                    SafeFile = fname;
-                    iSafeResult1 = sf1;
-                    Thread.Sleep(rnd.Next(1, 5));
-                    iSafeResult2 = sf2;
+                    //I somehow manipulate teh data
+                    Owner = owner;
+                    CarBrand = carBrand;
+                    //Thread.Sleep(rnd.Next(1, 5));
+                    RegNr = regNr;
 
-                    if (iSafeResult1 != iSafeResult2 || SafeFile != $"file{iSafeResult1}.txt")
-                        Console.WriteLine($"mySafe mismatch: iSafeResult1:{iSafeResult1}, iSafeResult2:{iSafeResult2}, SafeFile:{SafeFile}");
+                    //Create the instance
+                    _vehicle = new Vehicle(){ Owner = Owner,  CarBrand = CarBrand, RegNr = RegNr};
+                    
+                    //Place it into the list
+                    _vehicles.Add(_vehicle);
+
+                    //Check data consistency
+                    // if ((_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
+                    //     (_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    //     Console.WriteLine($"mySafe mismatch: Owner:{_vehicle.Owner}, CarBrand:{_vehicle.CarBrand}, RegNr:{_vehicle.RegNr}");
                 }
+                
             }
-            public (string, int, int) GetData()
+            public (string, string, string) GetData()
             {
                 lock (_locker) 
                 { 
-                    return (SafeFile, iSafeResult1, iSafeResult2); 
+                    return (_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr); 
                 }
             }
+
+            public bool CheckConsistency()
+            {
+                lock (_locker) 
+                { 
+                    foreach (var v in _vehicles)
+                    {
+                        if ((v.Owner, v.CarBrand, v.RegNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
+                            (v.Owner, v.CarBrand, v.RegNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                        {
+                            Console.WriteLine($"mySafe mismatch: Owner:{v.Owner}, CarBrand:{v.CarBrand}, RegNr:{v.RegNr}");
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }            
         }
 
         static void Main(string[] args)
         {
-            var SafeStorage = new SafeData();
+            var vechicleStorage = new VechicleStorage();
 
             var t1 = Task.Run(() =>
             {
                 var rnd = new Random();
                 for (int i = 0; i < 1_000; i++)
                 {
-                    SafeStorage.SetData("file8888.txt", 8888, 8888);
-                    (string fname, int i1, int i2) = SafeStorage.GetData();
-                    if (i1 != i2 || fname != $"file{i1}.txt")
-                        Console.WriteLine($"mySafe mismatch: i1:{i1}, i2:{i2}, fname:{fname}");
+                    vechicleStorage.SetData("Mickey Mouse", "Mickey Mouse", "Mickey Mouse");
+
+                    // (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
+                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
+                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    //     Console.WriteLine($"mySafe mismatch: Owner:{owner}, CarBrand:{carBrand}, RegNr:{regNr}");
                 }
                 Console.WriteLine("t1 Finished");
             });
@@ -59,18 +98,23 @@ namespace ThreadSafeData
                 var rnd = new Random();
                 for (int i = 0; i < 1_000; i++)
                 {
-                    SafeStorage.SetData("file1111.txt", 1111, 1111);
-                    (string fname, int i1, int i2) = SafeStorage.GetData();
-                    if (i1 != i2 || fname != $"file{i1}.txt")
-                        Console.WriteLine($"mySafe mismatch: i1:{i1}, i2:{i2}, fname:{fname}");
+                    vechicleStorage.SetData("Donald Duck", "Donald Duck", "Donald Duck");
+
+                    // (string owner, string carBrand, string regNr) = vechicleStorage.GetData();
+                    // if ((owner, carBrand, regNr) != ("Donald Duck", "Donald Duck", "Donald Duck") &&
+                    //     (owner, carBrand, regNr) != ("Mickey Mouse", "Mickey Mouse", "Mickey Mouse"))
+                    //     Console.WriteLine($"mySafe mismatch: Owner:{owner}, CarBrand:{carBrand}, RegNr:{regNr}");
                 }
                 Console.WriteLine("t2 Finished");
             });
 
             Task.WaitAll(t1, t2);
             Console.WriteLine("All Finished");
+
+            System.Console.WriteLine(vechicleStorage.CheckConsistency());
         }
-    }  }
+    }  
+}
 /*  Exercise
     1. Make class Vehicle Thread safe using lock(...)
     2.  - Have task t1 write 1000 times "ABC 123", "Kalle Anka" to myCar
