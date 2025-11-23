@@ -1,0 +1,35 @@
+<Solution>
+  <Folder Name="/ADOPM3_CodeExercises_Answers/">
+    <Project Path="Async1\Async1.csproj" />
+    <Project Path="Async2\Async2.csproj" />
+    <Project Path="Base64\Base64.csproj" />
+    <Project Path="CardGame_Delegate\CardGame_Delegate.csproj" />
+    <Project Path="ConsoleInput\ConsoleInput.csproj" />
+    <Project Path="Delegate1\Delegate1.csproj" />
+    <Project Path="Delegate2\Delegate2.csproj" />
+    <Project Path="Delegate3\Delegate3.csproj" />
+    <Project Path="ErrorHandling\ErrorHandling.csproj" />
+    <Project Path="Event1\Event1.csproj" />
+    <Project Path="Event2\Event2.csproj" />
+    <Project Path="IEnumerable\IEnumerable.csproj" />
+    <Project Path="JSONBase64\JSONBase64.csproj" />
+    <Project Path="Lambda0\Lambda0.csproj" />
+    <Project Path="Lambda1\Lambda1.csproj" />
+    <Project Path="Linq_Aggregate\Linq_Aggregate.csproj" />
+    <Project Path="Linq_Orders\Linq_Orders.csproj" />
+    <Project Path="Linq_Orders_Customers\Linq_Orders_Customers.csproj" />
+    <Project Path="Linq_ShallowVsDeepCopy\Linq_ShallowVsDeepCopy.csproj" />
+    <Project Path="SeedGenerator\SeedGenerator.csproj" />
+    <Project Path="Serialization\Serialization.csproj" />
+    <Project Path="Serialization0\Serialization0.csproj" />
+    <Project Path="Streams\Streams.csproj" />
+    <Project Path="Streams0\Streams0.csproj" />
+    <Project Path="Task2\Task2.csproj" />
+    <Project Path="Tasks\Tasks.csproj" />
+    <Project Path="Tasks0\Task0.csproj" />
+    <Project Path="Tasks1\Tasks1.csproj" />
+    <Project Path="Threads\Threads.csproj" />
+    <Project Path="ThreadSafeData\ThreadSafeData.csproj" />
+    <Project Path="Trains\Trains.csproj" />
+  </Folder>
+</Solution>
