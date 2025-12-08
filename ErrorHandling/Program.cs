@@ -60,11 +60,7 @@ namespace ErrorHandling
                             Console.WriteLine($"{ex.Message} - Why cant you listen!!");
                             throw;
                         }
-                        catch (Exception ex)
-                        {
-                            AppLog.Instance.LogException(ex);
-                            Console.WriteLine($"{ex.Message} - But it is alright my friend!");
-                        }
+
                         finally
                         {
                             Console.WriteLine("Code here will always be executed!");
@@ -80,10 +76,10 @@ namespace ErrorHandling
         static void PressTheButton(int buttonNr)
         {
             if (buttonNr == 3)
-                throw new ExplosionException("Managable KaBoom", buttonNr, ErrorSeverity.managable);
+                throw new ExplosionException("Managable KaBoom"){ ButtonPressed = buttonNr, Severity = ErrorSeverity.managable};
 
             if (buttonNr == 4)
-                throw new ExplosionException("Fatal Crash", buttonNr, ErrorSeverity.fatal);
+                throw new ExplosionException("Fatal Crash"){ ButtonPressed = buttonNr, Severity = ErrorSeverity.fatal};
 
             if (buttonNr == 5)
                 throw new Exception("KaBoom!!");
