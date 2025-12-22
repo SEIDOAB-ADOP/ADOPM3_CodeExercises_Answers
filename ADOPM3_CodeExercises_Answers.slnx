@@ -13,6 +13,7 @@
     <Project Path="Event2\Event2.csproj" />
     <Project Path="Enumerable1\Enumerable1.csproj" />
     <Project Path="JSONBase64\JSONBase64.csproj" />
+    <Project Path="Extensions1/Extensions1.csproj" />
     <Project Path="Lambda0\Lambda0.csproj" />
     <Project Path="Lambda1\Lambda1.csproj" />
     <Project Path="Linq_Aggregate\Linq_Aggregate.csproj" />
