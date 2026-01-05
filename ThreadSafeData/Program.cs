@@ -59,6 +59,7 @@ namespace ThreadSafeData
             {
                 lock (_locker) 
                 { 
+                    _vehicle = _vehicles[_vehicles.Count - 1];
                     return (_vehicle.Owner, _vehicle.CarBrand, _vehicle.RegNr); 
                 }
             }
