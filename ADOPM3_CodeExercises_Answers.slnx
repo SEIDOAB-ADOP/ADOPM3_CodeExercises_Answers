@@ -3,8 +3,8 @@
     <Project Path="Async1\Async1.csproj" />
     <Project Path="Async2\Async2.csproj" />
     <Project Path="Base64\Base64.csproj" />
+    <Project Path="Cache1/Cache1.csproj" />
     <Project Path="CardGame_Delegate\CardGame_Delegate.csproj" />
-    <Project Path="ConsoleInput\ConsoleInput.csproj" />
     <Project Path="Delegate1\Delegate1.csproj" />
     <Project Path="Delegate2\Delegate2.csproj" />
     <Project Path="Delegate3\Delegate3.csproj" />
